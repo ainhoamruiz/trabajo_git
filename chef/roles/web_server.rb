@@ -1,3 +1,3 @@
 name "web_server"
-description "Servidor Apache"
-run_list "role[base_config]", "recipe[apache2]"
+description "Frontales del CMS con Nginx o Apache"
+run_list "role[base_config]", "recipe[nginx_service]"

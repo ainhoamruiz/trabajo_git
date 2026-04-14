@@ -1,0 +1,8 @@
+{
+  "name": "10.10.10.20",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base_config]",
+    "role[db_server]"
+  ]
+}

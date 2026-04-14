@@ -1,0 +1,8 @@
+{
+  "name": "192.168.100.21",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base_config]",
+    "role[web_server]"
+  ]
+}

@@ -18,3 +18,11 @@ end
 service 'ssh' do
   action [:enable, :start]
 end
+
+package 'snmpd' do
+  action :install
+end
+
+service 'snmpd' do
+  action [:enable, :start]
+end

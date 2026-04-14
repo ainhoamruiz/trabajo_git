@@ -1,28 +1,20 @@
-#
-# Cookbook:: base_config
-# Recipe:: default
-#
-# Copyright:: 2026, The Authors, All Rights Reserved.
-
-# Actualizar el sistema (Apt update)
+# 1. Actualizar el sistema
 execute 'apt-get update' do
   command 'apt-get update'
 end
 
-# Instalar herramientas básicas
-package ['vim', 'curl', 'git', 'unzip'] do
+# 2. Instalar herramientas básicas y monitorización
+# Añadimos snmpd 
+package ['vim', 'curl', 'git', 'unzip', 'snmpd'] do
   action :install
 end
 
-# Configurar SSH (Paso 9 del proyecto: seguridad)
+# 3. Configurar y asegurar SSH 
 service 'ssh' do
   action [:enable, :start]
 end
 
-package 'snmpd' do
-  action :install
-end
-
+# 4. Habilitar el agente de monitorización
 service 'snmpd' do
   action [:enable, :start]
 end

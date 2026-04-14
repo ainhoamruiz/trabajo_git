@@ -1,0 +1,23 @@
+📋 MAPA DE INFRAESTRUCTURA Y DIRECCIONES IP
+
+🔴 RED PÚBLICA / DMZ (red_main -> Rango: 192.168.100.0/24)
+------------------------------------------------------------
+- pfSense (Externa) : 192.168.100.1   [Router/Firewall - Persona 2]
+- Balanceador (LB)  : 192.168.100.10  [Entrada web - Persona 3]
+- Web-01            : 192.168.100.21  [Frontal CMS 1]
+- Web-02            : 192.168.100.22  [Frontal CMS 2]
+- Hot-Desks (x8)    : 192.168.100.100 al .107 [Puestos empleados]
+
+🔵 RED AISLADA (red_internal -> Rango: 10.10.10.0/24)
+------------------------------------------------------------
+- pfSense (Interna) : 10.10.10.1      [Gateway hacia main]
+- Master-01         : 10.10.10.11     [Clúster K8s - Persona 5]
+- Master-02         : 10.10.10.12     [Clúster K8s]
+- Worker-01         : 10.10.10.13     [Clúster K8s]
+- Worker-02         : 10.10.10.14     [Clúster K8s]
+- Base de Datos     : 10.10.10.20     [SQL - Persona 5]
+- Monitorización    : 10.10.10.30     [Prometheus/Grafana]
+
+🟣 NODO PUENTE (Conectado a AMBAS redes)
+------------------------------------------------------------
+- Jumpstart         : 192.168.100.50 (main) y 10.10.10.50 (internal) [Aprovisionamiento - Persona 4]

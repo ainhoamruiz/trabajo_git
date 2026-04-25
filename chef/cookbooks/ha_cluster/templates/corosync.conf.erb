@@ -1,0 +1,51 @@
+# Configuración de Corosync para Fake Enterprise
+# Este archivo gestiona el clúster HA y la redundancia de red (Punto 12)
+
+totem {
+    version: 2
+    cluster_name: fake_enterprise_cluster
+    transport: udpu
+
+    # Anillo 0: Red Principal (Internal) - Punto 2 del enunciado
+    interface {
+        ringnumber: 0
+        bindnetaddr: 10.10.10.0
+        mcastport: 5405
+    }
+
+    # Anillo 1: Red de Redundancia - Punto 12 del enunciado
+    # Se utiliza la red 10.10.11.0 para evitar puntos únicos de fallo
+    interface {
+        ringnumber: 1
+        bindnetaddr: 10.10.11.0
+        mcastport: 5407
+    }
+}
+
+nodelist {
+    # Nodo Maestro 01
+    node {
+        ring0_addr: 10.10.10.11
+        ring1_addr: 10.10.11.11
+        nodeid: 1
+    }
+    # Nodo Maestro 02
+    node {
+        ring0_addr: 10.10.10.12
+        ring1_addr: 10.10.11.12
+        nodeid: 2
+    }
+}
+
+logging {
+    to_logfile: yes
+    logfile: /var/log/corosync/corosync.log
+    to_syslog: yes
+    debug: off
+}
+
+quorum {
+    provider: corosync_votequorum
+    # Al ser un clúster de solo 2 nodos, activamos two_node
+    two_node: 1
+}

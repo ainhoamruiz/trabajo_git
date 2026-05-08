@@ -4,8 +4,10 @@
 #
 # Copyright:: 2026, The Authors, All Rights Reserved.
 
+# Ignoramos el fallo de instalación si no hay red
 package 'nginx' do
   action :install
+  ignore_failure true
 end
 
 service 'nginx' do
